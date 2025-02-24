@@ -2,7 +2,6 @@ import productService from "./product.service.js";
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone.js'; 
 import utc from 'dayjs/plugin/utc.js'; 
-import cron from 'node-cron';
 
 
 dayjs.extend(utc);
@@ -221,8 +220,11 @@ export const addStock = async (req, res) => {
 export const lowstockproducts = async (req, res) => {
     try {
         const result = await new productService().lowstockproducts();
+        const io = req.app.get("io")
+        console.log("สต๊อกใกล้หมด", result)
 
         if (result.length) {
+            io.emit("สต๊อกใกล้หมด",result)
             res.status(200).send({
                 status: "success",
                 code: 1,

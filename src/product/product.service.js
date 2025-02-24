@@ -22,7 +22,6 @@ export default class productService{
         return result;
     }
     
-
     async getProducts(){
 
         const sql = `SELECT  p.ProductID, p.ProductName, p.QuantityInStock, p.ReorderPoint, p.Price, p.CreatedAt, c.CategoryName 
